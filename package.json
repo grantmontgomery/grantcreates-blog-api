@@ -6,7 +6,9 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon ./src/index.ts"
+    "start": "node dist/app.js",
+    "dev": "nodemon src/index.ts",
+    "build": "tsc -p ."
   },
   "devDependencies": {
     "@types/express": "^4.17.13",
