@@ -1,14 +1,36 @@
 import express from "express";
 import cors from "cors";
+import { ApolloServer, gql } from "apollo-server-express";
 
-const app = express();
+const typeDefs = gql`
+  type Query {
+    hello: String
+  }
+`;
 
-app.get("/", (req, res) => res.send("hello world"));
+const resolvers = {
+  Query: {
+    hello: () => "Hello World!",
+  },
+};
 
-app.use(cors());
+const startServer = async () => {
+  try {
+    const app = express();
+    app.use(cors());
+    app.use(express.json());
+    const server = new ApolloServer({ typeDefs, resolvers });
 
-app.use(express.json());
+    await server.start();
 
-app.listen(3001, () => {
-  console.log("app is running at port 3001");
-});
+    server.applyMiddleware({ app });
+
+    app.listen({ port: 3001 }, () => {
+      console.log("Server ready at 3001");
+    });
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+startServer();
