@@ -1,12 +1,15 @@
 {
   "compilerOptions": {
-    "outDir": "./dist",
     "target": "ESNEXT",
+    "outDir": "./dist",
+    "lib": ["ESNext.AsyncIterable"],
     "module": "commonjs",
     "moduleResolution": "node",
-    "strict": true,
+
     "rootDir": "./src",
     "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
     "noImplicitAny": true
   }
 }
