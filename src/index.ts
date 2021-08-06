@@ -1,7 +1,9 @@
 import "reflect-metadata";
 import express from "express";
+import { db_connect } from "./util";
 import cors from "cors";
 import { ApolloServer, gql } from "apollo-server-express";
+import { User } from "./entity/User";
 
 const typeDefs = gql`
   type Query {
@@ -24,8 +26,9 @@ const startServer = async () => {
 
     await server.start();
 
-    server.applyMiddleware({ app });
+    const results = await db_connect();
 
+    console.log(results);
     app.listen({ port: 3001 }, () => {
       console.log("Server ready at 3001");
     });

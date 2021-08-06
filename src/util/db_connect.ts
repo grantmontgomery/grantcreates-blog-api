@@ -1,18 +1,21 @@
 import "reflect-metadata";
 import { createConnection } from "typeorm";
-
-const db_connect = async () => {
+require("dotenv").config();
+export const db_connect = async () => {
   try {
-    const connection = createConnection({
-      type: "mysql",
-      host: "localhost",
-      port: 3306,
-      username: "root",
-      password: "admin",
-      database: "test",
-      entities: [],
+    const connection = await createConnection({
+      type: "postgres",
+      name: "default",
+      host: process.env.DB_HOST,
+      username: "postgres",
+      password: process.env.DB_DEV_PASSWORD,
+      database: "postgres",
       synchronize: true,
-      logging: false,
+      entities: ["src/entity/**/*.ts"],
+      logging: true,
+      extra: {
+        socketPath: "/cloudsql/grantcreates-blog:us-west1:grantcreates-blog",
+      },
     });
 
     return connection;
