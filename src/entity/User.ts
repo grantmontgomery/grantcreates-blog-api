@@ -8,7 +8,7 @@ import {
 @Entity({ name: "users" })
 export class User {
   @PrimaryGeneratedColumn()
-  id: number;
+  id?: number;
   @Column({
     type: "varchar",
     length: 20,
@@ -21,7 +21,7 @@ export class User {
   @Column({ type: "varchar", length: 30, collation: "en_US" })
   last_name: string;
   @Column({ type: "int", array: true, default: "{}" })
-  article_ids: number[];
+  article_ids?: number[];
   @CreateDateColumn()
-  date_created: Date;
+  date_created?: Date;
 }

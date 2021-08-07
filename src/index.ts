@@ -1,6 +1,6 @@
 import "reflect-metadata";
 import express from "express";
-import { db_connect } from "./util";
+import { createConnection, getRepository } from "typeorm";
 import cors from "cors";
 import { ApolloServer, gql } from "apollo-server-express";
 import { User } from "./entity/User";
@@ -25,10 +25,19 @@ const startServer = async () => {
     const server = new ApolloServer({ typeDefs, resolvers });
 
     await server.start();
+    await createConnection();
 
-    const results = await db_connect();
+    const userRepository = getRepository(User, "default");
 
-    console.log(results);
+    const newUser: User = {
+      first_name: "Grant",
+      last_name: "Montgomery",
+      username: "Grant",
+    };
+
+    const result = await userRepository.findOne(1);
+
+    console.log(result);
     app.listen({ port: 3001 }, () => {
       console.log("Server ready at 3001");
     });
