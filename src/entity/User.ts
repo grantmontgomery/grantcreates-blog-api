@@ -1,15 +1,27 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  PrimaryGeneratedColumn,
+} from "typeorm";
 
-@Entity()
+@Entity({ name: "users" })
 export class User {
   @PrimaryGeneratedColumn()
   id: number;
-  @Column("varchar")
+  @Column({
+    type: "varchar",
+    length: 20,
+    unique: true,
+    collation: "en_US.utf8",
+  })
   username: string;
-  @Column("varchar")
-  firstname: string;
-  @Column("varchar")
-  lastname: string;
-  @Column("int", { array: true })
+  @Column({ type: "varchar", length: 20, collation: "en_US" })
+  first_name: string;
+  @Column({ type: "varchar", length: 30, collation: "en_US" })
+  last_name: string;
+  @Column({ type: "int", array: true, default: "{}" })
   article_ids: number[];
+  @CreateDateColumn()
+  date_created: Date;
 }
