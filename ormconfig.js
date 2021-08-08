@@ -14,5 +14,3 @@ module.exports = {
     socketPath: "/cloudsql/grantcreates-blog:us-west1:grantcreates-blog",
   },
 };
-
-console.log(process.env.NODE_ENV);

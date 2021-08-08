@@ -6,8 +6,8 @@ import {
 } from "typeorm";
 
 @Entity({ name: "users" })
-export class User {
-  @PrimaryGeneratedColumn()
+export class UserEntity {
+  @PrimaryGeneratedColumn({})
   id?: number;
   @Column({
     type: "varchar",

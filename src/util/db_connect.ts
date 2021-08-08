@@ -1,17 +1,24 @@
 import "reflect-metadata";
-import { createConnection, getRepository } from "typeorm";
-import { User } from "../entity/User";
+import { createConnection } from "typeorm";
 require("dotenv").config();
 export const db_connect = async () => {
   try {
-    const userRepository = getRepository(User);
+    const connection = await createConnection({
+      type: "postgres",
+      name: "default",
+      host: process.env.DB_HOST,
+      username: "postgres",
+      password: process.env.DB_DEV_PASSWORD,
+      database: "postgres",
+      synchronize: true,
+      entities: ["src/entity/**/*.ts"],
+      logging: true,
+      extra: {
+        socketPath: "/cloudsql/grantcreates-blog:us-west1:grantcreates-blog",
+      },
+    });
 
-    const newUser: User = {
-      first_name: "Grant",
-      last_name: "Montgomery",
-      username: "Grant",
-    };
-    return userRepository.create(newUser);
+    return connection;
   } catch (error) {
     throw error;
   }

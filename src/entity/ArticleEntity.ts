@@ -7,7 +7,7 @@ import {
 } from "typeorm";
 
 @Entity({ name: "articles" })
-export class Article {
+export class ArticleEntity {
   @PrimaryGeneratedColumn()
   id: number;
   @Column({ type: "varchar", length: 100, collation: "en_US" })
