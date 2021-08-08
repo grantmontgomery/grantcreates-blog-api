@@ -29,12 +29,6 @@ const startServer = async () => {
 
     const userRepository = getRepository(User, "default");
 
-    const newUser: User = {
-      first_name: "Grant",
-      last_name: "Montgomery",
-      username: "Grant",
-    };
-
     const result = await userRepository.findOne(1);
 
     console.log(result);
