@@ -1,22 +1,15 @@
 import "reflect-metadata";
 import express from "express";
-import { createConnection, getRepository } from "typeorm";
+import { createConnection } from "typeorm";
 import cors from "cors";
-import { UserResolver } from "./resolvers/UserResulver";
 import { ApolloServer, gql } from "apollo-server-express";
-import { buildSchema, emitSchemaDefinitionFileSync } from "type-graphql";
+import { buildSchema } from "type-graphql";
 
 const typeDefs = gql`
   type Query {
     hello: String
   }
 `;
-
-const resolvers = {
-  Query: {
-    hello: () => "Hello World!",
-  },
-};
 
 const startServer = async () => {
   try {
@@ -37,12 +30,9 @@ const startServer = async () => {
     const server = new ApolloServer({ schema });
 
     await server.start();
+    await createConnection();
 
     server.applyMiddleware({ app });
-
-    const connection = await createConnection();
-
-    console.log(connection);
 
     app.listen({ port: 3001 }, () => {
       console.log("Server ready at 3001");

@@ -6,7 +6,9 @@ import { getRepository } from "typeorm";
 @Resolver((of) => User)
 export class UserResolver {
   @Query(() => User)
-  async findOneById(id: number): Promise<UserEntity> {
+  async findOneById(
+    @Arg("id", { nullable: false }) id: number
+  ): Promise<UserEntity> {
     try {
       const userRepository = getRepository(UserEntity);
 
