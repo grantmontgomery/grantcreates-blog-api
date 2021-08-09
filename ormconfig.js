@@ -3,7 +3,10 @@ require("dotenv").config();
 module.exports = {
   type: "postgres",
   name: "default",
-  host: process.env.DB_HOST,
+  host:
+    process.env.NODE_ENV == "development"
+      ? process.env.DB_HOST_DEV
+      : process.env.DB_HOST,
   username: "postgres",
   password: process.env.DB_DEV_PASSWORD,
   database: "postgres",
@@ -13,6 +16,9 @@ module.exports = {
   cache: true,
   logging: true,
   extra: {
-    socketPath: "/cloudsql/grantcreates-blog:us-west1:grantcreates-blog",
+    socketPath:
+      process.env.NODE_ENV == "development"
+        ? process.env.DB_SOCKET_DEV
+        : process.env.DB_SOCKET_PROD,
   },
 };
