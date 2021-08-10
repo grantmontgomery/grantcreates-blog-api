@@ -1,4 +1,11 @@
-import { Arg, Int, Query, FieldResolver, Resolver } from "type-graphql";
+import {
+  Arg,
+  Int,
+  Query,
+  FieldResolver,
+  Resolver,
+  Mutation,
+} from "type-graphql";
 import { User } from "../types";
 import { UserEntity } from "../entity/UserEntity";
 import { getRepository } from "typeorm";
@@ -19,4 +26,18 @@ export class UserResolver {
       return error;
     }
   }
+  // @Mutation((of) => User)
+  // async createNewUser(
+  //   @Arg("user", { nullable: false }) user: User
+  // ): Promise<UserEntity> {
+  //   try {
+  //     const userRepository = getRepository(UserEntity);
+
+  //     const newUser = await userRepository.save(user);
+
+  //     return newUser;
+  //   } catch (error) {
+  //     return error;
+  //   }
+  // }
 }
